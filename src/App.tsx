@@ -1,92 +1,106 @@
-import { useState, FormEvent } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
 
 function App() {
-  function Submit(e: FormEvent) {
-    e.preventDefault();
-  }
+  const [check, setCheck] = useState<boolean>(false);
 
-  function Imie(e: any) {
-    const value = e.target.value;
-  }
+  // Imie
+  const [name, setName] = useState<string>('');
+  const [nameError, setNameError] = useState<string>('');
+  const Name = () => {
+    if (!check) return;
 
-  function Nazwisko(e: any) {
-    const value = e.target.value;
-  }
+    const min = /.{3,}/;
+    const zwykle = /^[a-zA-Z]+$/;
 
-  function Email(e: any) {
-    const value = e.target.value;
-  }
+    if (!name.match(min))
+      setNameError('Imie musi mieć minimalnie 3 cyfry');
 
-  const [password2, setPassword2] = useState<string>('');
-  function Password(e: any) {
-    const value = e.target.value;
-  }
+    if (!name.match(zwykle)) 
+      setNameError('Imie musi składać sie tylko z zwykłych znaków');
+  };
+  useEffect(Name, [name]);
 
-  function Wiek(e: any) {
-    const value = e.target.value;
+  // Nazwisko 
+  const [surname, setSurname] = useState<string>('');
+  const [surnameError, setSurnameError] = useState<string>('');
+  const Surname = () => {};
+  useEffect(Surname, [surname]);
+  
+  // Email 
+  
+  // Hasło
 
-  }
+  // Wiek
 
-  function DataUrodzenia(e: any) {
-    const value = e.target.value;
-  }
+  // Data urodzenia
 
-  function Kraj(e: any) {
-    const value = e.target.value;
-  }
+  // Kraj
+
+  // Marketing
+
+  // Regulamin
 
   return (
-    <form onSubmit={(e) => Submit(e)}>
+    <form onSubmit={() => setCheck(true)}>
       <div>
         <label htmlFor='imie'>Imię:</label>
-        <input type='text' onChange={(e) => Imie(e)} id='imie' />
+        <input type='text' value={name} onChange={(e) => setName(e.target.value)} id='imie' />
+        <p>{nameError}</p>
       </div>
 
       <div>
         <label htmlFor='nazwisko'>Imię:</label>
-        <input type='text' onChange={(e) => Nazwisko(e)} id='nazwisko' />
+        <input type='text' value={surname} onChange={(e) => setSurname(e.target.value)} id='nazwisko' />
+        <p>{surnameError}</p>
       </div>
 
       <div>
         <label htmlFor='email'>Email:</label>
-        <input type='text' onChange={(e) => Email(e)} id='email' />
+        <input type='text' id='email' />
+        <p>{}</p>
       </div>
 
       <div>
         <label htmlFor='password'>Hasło:</label>
-        <input type='text' onChange={(e) => Password(e)} id='password' />
+        <input type='text' id='password' />
+        <p>{}</p>
       </div>
 
       <div>
         <label htmlFor='password2'>Potwierdź hasło:</label>
-        <input type='password' value={password2} onChange={(e) => setPassword2(e.target.value)} id='password2' />
+        <input type='password' id='password2' />
+        <p>{}</p>
       </div>
 
       <div>
         <label htmlFor='wiek'>Wiek:</label>
-        <input type='number' onChange={(e) => Wiek(e)} id='wiek' />
+        <input type='number' id='wiek' />
+        <p>{}</p>
       </div>
 
       <div>
         <label htmlFor='data'>Data urodzenia:</label>
-        <input type='date' onChange={(e) => DataUrodzenia(e)} id='data' />
+        <input type='date' id='data' />
+        <p>{}</p>
       </div>
 
       <div>
         <label htmlFor='kraj'>Kraj:</label>
-        <select onChange={(e) => Kraj(e)} id='kraj'>
+        <select id='kraj'>
         </select>
+        <p>{}</p>
       </div>
 
       <div>
         <label htmlFor='marketing'>Zgoda na marketing:</label>
         <input type='checkbox' id='marketing' />
+        <p>{}</p>
       </div>
 
       <div>
         <label htmlFor='regulamin'>Regulamin:</label>
         <input type='checkbox' id='regulamin' />
+        <p>{}</p>
       </div>
 
       <button type='submit'>Wyślij</button>
